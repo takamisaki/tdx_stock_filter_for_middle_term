@@ -1,0 +1,29 @@
+{本公式致力于发掘选股长期均线粘合走平后的向上突破点}
+
+{高于250线}
+MA5:=MA(C,5);
+MA20:=MA(C,20);
+MA40:=MA(C,40);
+MA60:=MA(C,60);
+MA80:=MA(C,80);
+MA100:=MA(C,100);
+MA250:=MA(C,250);
+MAXMA:=MAX6(MA5,MA20,MA40,MA60,MA80,MA100);
+MINMA:=MIN6(MA5,MA20,MA40,MA60,MA80,MA100);
+年线之上:=MINMA>MA250;
+
+{5日内,5日线上穿20,40,60日线,且是黄金金叉,即两线都是向上}
+上穿:=EXIST(CROSS(MA5,MA20) AND MA20>REF(MA20,1),5) 
+    AND EXIST(CROSS(MA5,MA40) AND MA40>REF(MA40,1),5) 
+    AND EXIST(CROSS(MA5,MA60) AND MA60>REF(MA60,1),5) 
+    AND MA100>REF(MA100,1) 
+    AND MA250>REF(MA250,1);
+
+{过去40日,振幅<30%}
+四十顶:=HHV(H,40);
+四十底:=LLV(L,40);
+四十振幅:=(四十顶-四十底)/四十底*100;
+振幅小:=REF(四十振幅,5)<=30;
+
+选股:年线之上 AND 上穿 AND 振幅小;
+STICKLINE(选股,0,1,2,0),COLORRED;
