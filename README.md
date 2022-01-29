@@ -1,4 +1,4 @@
-# tdx_tock_filter_for_middle_term
+# tdx_Stock_filter_for_middle_term
 更适用于中线选股
 
 ## 创建原因
